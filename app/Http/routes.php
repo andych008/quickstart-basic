@@ -23,6 +23,40 @@ Route::get('/', function () {
     ]);
 });
 
+/**
+ * Show Task Dashboard
+ */
+Route::get('/mydata', function () {
+//    return view('mydatas');
+	$task = Task::all();
+    print $task;
+});
+/**
+ * Show Task Dashboard
+ */
+Route::get('/task/{id}', function ($id) {
+	$task = App\Task::findOrNew($id);
+    print $task;
+});
+
+/**
+ * Show Task Dashboard
+ */
+Route::get('/taskByName/{id}', function ($id) {
+    $task = Task::findOrFail($id);
+    print $task;
+});
+
+/**
+ * Show Task Dashboard
+ */
+Route::get('/demo1/{name}', function ($name) {
+    return view('demo1', [
+        'name' => $name,
+        'htmlData' => '<div><font color="red">我是htmlData</font></div>'
+    ]);
+});
+
 
 /**
  * Add New Task
