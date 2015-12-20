@@ -14,14 +14,6 @@
 use App\Task;
 use Illuminate\Http\Request;
 
-/**
- * Show Task Dashboard
- */
-Route::get('/', function () {
-    return view('tasks', [
-    	'tasks' => Task::orderBy('created_at', 'asc')->get()
-    ]);
-});
 
 /**
  * Show Task Dashboard
@@ -29,13 +21,6 @@ Route::get('/', function () {
 Route::get('/mydata', function () {
 //    return view('mydatas');
 	$task = Task::all();
-    print $task;
-});
-/**
- * Show Task Dashboard
- */
-Route::get('/task/{id}', function ($id) {
-	$task = App\Task::findOrNew($id);
     print $task;
 });
 
@@ -59,32 +44,22 @@ Route::get('/demo1/{name}', function ($name) {
 
 
 /**
+ * Show Task Dashboard
+ */
+Route::get('/','TaskController@index');
+
+/**
+ * Show Task Dashboard
+ */
+Route::get('/task/{id}', 'TaskController@show');
+
+
+/**
  * Add New Task
  */
-Route::post('/task', function (Request $request) {
-	$validator = Validator::make($request->all(), [
-		'name' => 'required|max:255',
-	]);
-
-	if ($validator->fails()) {
-		return redirect('/')
-			->withInput()
-			->withErrors($validator);
-	}
-
-	$task = new Task;
-	$task->name = $request->name;
-	$task->save();
-
-	return redirect('/');
-});
-
+Route::post('/task', 'TaskController@store');
 
 /**
  * Delete Task
  */
-Route::delete('/task/{id}', function ($id) {
-	Task::findOrFail($id)->delete();
-
-	return redirect('/');
-});
+Route::delete('/task/{id}', 'TaskController@destroy');
