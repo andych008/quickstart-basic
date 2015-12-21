@@ -62,6 +62,11 @@ Route::get('/','TaskController@index');
 /**
  * Show Task Dashboard
  */
+Route::get('/home','TaskController@index');
+
+/**
+ * Show Task Dashboard
+ */
 Route::get('/task/{id}', 'TaskController@show');
 
 
